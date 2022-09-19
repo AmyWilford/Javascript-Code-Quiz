@@ -21,7 +21,8 @@ let countdown;
 function setTimer(){
     countdown=10;
     timer = setInterval(function(){
-        countdownEl.textContent = countdown;
+        countdownEl.textContent = 'Time remaining: '+countdown;
+        highScoreEl.textContent = 'Highscores';
         countdown--;
         if (countdown >=0) {
             if (isWin && countdown >0) {

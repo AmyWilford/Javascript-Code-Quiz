@@ -9,7 +9,15 @@ main {
 #game-area {
     border: 3px solid black;
     border-radius: 25px;
-    padding: 75px;
+    padding: 20px;
+}
+#game-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 4rem;
+    color: pink;
 }
 button {
     background-color: #341039;
