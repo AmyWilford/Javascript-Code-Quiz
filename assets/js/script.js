@@ -7,15 +7,60 @@ let questionEl = document.getElementById('question');
 let multipleChoiceEl = document.getElementById('multiple-choice');
 let validateEl = document.getElementById('validate')
 
-let questions = [
-
+// Array of all question objects
+let allQuestions = [
+    {
+        question: 'question 1',
+        answers: [
+            {text: 'answer 1', status: 1},
+            {text: 'answer 2', status: 0},
+            {text: 'answer 3', status: 0},
+            {text: 'answer 4', status:0 }
+        ]
+    },
+    {
+        question: 'question 2',
+        answers: [
+            {text: 'answer 1', status: 1},
+            {text: 'answer 2', status: 0},
+            {text: 'answer 3', status: 0},
+            {text: 'answer 4', status: 0}
+        ]
+    },
+    {
+        question: 'question 3',
+        answers: [
+            {text: 'answer 1', status: 1},
+            {text: 'answer 2', status: 0},
+            {text: 'answer 3', status: 0},
+            {text: 'answer 4', status: 0}
+        ]
+    },
+    {
+        question: 'question 4',
+        answers: [
+            {text: 'answer 1', status: 1},
+            {text: 'answer 2', status: 0},
+            {text: 'answer 3', status: 0},
+            {text: 'answer 4', status: 0}
+        ]
+    },
+    {
+        question: 'question 5',
+        answers: [
+            {text: 'answer 1', status: 1},
+            {text: 'answer 2', status: 0},
+            {text: 'answer 3', status: 0},
+            {text: 'answer 4', status: 0}
+        ]
+    }
 ]
+
+let randomQuestion;
 let score;
 let isWin = false;
 let timer;
 let countdown;
-
-
 
 // Function to set Timer
 function setTimer(){
@@ -38,8 +83,11 @@ function setTimer(){
     },1000)
 }
 // Function to show questions
-// function showQuestions{}
+function firstQuestion() {
+    randomQuestion = allQuestions[Math.floor(Math.random()*allQuestions.length)]
+    console.log(randomQuestion);
 
+}
 // when right > show new question
 // when wrong > deduct time from the clock
 
@@ -55,7 +103,8 @@ function setTimer(){
 
 // Function to start the Game
 function startGame(){
-    startButtonEl.addEventListener('click', setTimer);
+    setTimer();
+    firstQuestion();
 }
 
-startGame();
+startButtonEl.addEventListener('click', startGame);
