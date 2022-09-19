@@ -1,0 +1,30 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+}
+main {
+    text-align: center;
+    margin: 50px;
+}
+#game-area {
+    border: 3px solid black;
+    border-radius: 25px;
+    padding: 75px;
+}
+button {
+    background-color: #341039;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    margin: 30px 0px;
+}
+#button-start {
+    background-color: blueviolet;
+}
+#button-start:hover {
+    background-color: #341039;
+}
+#button-start:active {
+    color: blueviolet;
+}

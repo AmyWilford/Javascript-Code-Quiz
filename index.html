@@ -5,9 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <title>Document</title>
+    <title>JavaScript Quiz</title>
 </head>
 <body>
+    <main>
+        <div id="game-area">
+            <div id="game-header">
+            <div id="highscores"></div>
+            <div id="countdown"></div>
+            </div>
+            <div id="intro-section">
+                <h1>JavaScript Quiz: Text your knowledge</h1>
+                <span>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answerws will penalize your score/time by ten seconds!</span>
+                <br>
+                <button id="button-start">Start Quiz</button>
+
+            </div>
+            <div id="question section">
+                <h2 id="questions"></h2>
+                <ul id="multiple-choice"></ul>
+                <span id="validate"></span>
+            </div>
+        </div>
+    </main>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
