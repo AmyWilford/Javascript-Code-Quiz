@@ -2,8 +2,10 @@
 let gameHeaderEl = document.getElementById('game-header');
 let highScoreEl = document.getElementById('highscore');
 let countdownEl =document.getElementById('countdown');
+let introEl = document.getElementById('intro-section');
 let startButtonEl = document.getElementById('button-start');
 let questionEl = document.getElementById('question');
+let answerButtons = document.querySelectorAll('answer');
 let multipleChoiceEl = document.getElementById('multiple-choice');
 let validateEl = document.getElementById('validate')
 
@@ -61,14 +63,17 @@ let score;
 let isWin = false;
 let timer;
 let countdown;
+let answerList;
 
 // Function to set Timer
 function setTimer(){
-    startButtonEl.setAttribute('style','display: none' );
+    introEl.setAttribute('style','display: none' );
+    countdownEl.textContent = 'Count Down';
+    highScoreEl.textContent = 'Highscores';
     countdown=10;
     timer = setInterval(function(){
-        countdownEl.textContent = 'Time remaining: '+countdown;
-        highScoreEl.textContent = 'Highscores';
+    countdownEl.textContent = countdown + ' seconds left';
+    highScoreEl.textContent = 'Highscores';
         countdown--;
         if (countdown >=0) {
             if (isWin && countdown >0) {
@@ -85,12 +90,27 @@ function setTimer(){
 }
 // Function to show questions
 function firstQuestion() {
+    // Pick random question from list of questions
     randomQuestion = allQuestions[Math.floor(Math.random()*allQuestions.length)]
     console.log(randomQuestion);
+    
+    // Determine index of question
     let questionIndex = allQuestions.indexOf(randomQuestion);
-    questionEl.textContent = allQuestions[questionIndex].question;
-
+    console.log(questionIndex);
+    
+    // Update question-section element with question text
+    let selectedQuestion = allQuestions[questionIndex].question;
+    questionEl.textContent = selectedQuestion;
+    console.log(selectedQuestion);
+    for(let i=0; i<4; i++){
+       let allAnswers= allQuestions[questionIndex].answers[i]['text'];
+       console.log(allAnswers);
+        let answerButtons = document.createElement('button');
+        answerButtons.textContent = allAnswers;
+        multipleChoiceEl.appendChild(answerButtons)
+    }
 }
+
 // when right > show new question
 // when wrong > deduct time from the clock
 

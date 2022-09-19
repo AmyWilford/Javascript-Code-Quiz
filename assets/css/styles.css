@@ -36,3 +36,9 @@ button {
 #button-start:active {
     color: blueviolet;
 }
+#multiple-choice {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+}
