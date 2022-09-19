@@ -1,7 +1,17 @@
+// Set variables to access HTML elements
+let gameHeaderEl = document.getElementById('game-header');
+let highScoreEl = document.getElementById('highscore');
+let countdownEl =document.getElementById('countdown');
+let startButtonEl = document.getElementById('button-start');
+let questionEl = document.getElementById('question');
+let multipleChoiceEl = document.getElementById('multiple-choice');
+let validateEl = document.getElementById('validate')
+
+
 // let Questions = OBJECT
 
 // Function to set Timer
-// function setTimer(){}
+
 
 // Function to show questions
 // function showQuestions{}
