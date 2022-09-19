@@ -87,7 +87,8 @@ function setTimer(){
 function firstQuestion() {
     randomQuestion = allQuestions[Math.floor(Math.random()*allQuestions.length)]
     console.log(randomQuestion);
-    questionEl.textContent = allQuestions[1].question;
+    let questionIndex = allQuestions.indexOf(randomQuestion);
+    questionEl.textContent = allQuestions[questionIndex].question;
 
 }
 // when right > show new question
