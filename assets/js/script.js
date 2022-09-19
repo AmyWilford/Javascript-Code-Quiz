@@ -64,6 +64,7 @@ let countdown;
 
 // Function to set Timer
 function setTimer(){
+    startButtonEl.setAttribute('style','display: none' );
     countdown=10;
     timer = setInterval(function(){
         countdownEl.textContent = 'Time remaining: '+countdown;
@@ -86,6 +87,7 @@ function setTimer(){
 function firstQuestion() {
     randomQuestion = allQuestions[Math.floor(Math.random()*allQuestions.length)]
     console.log(randomQuestion);
+    questionEl.textContent = allQuestions[1].question;
 
 }
 // when right > show new question
