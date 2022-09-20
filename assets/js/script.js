@@ -10,6 +10,7 @@ let multipleChoiceEl = document.getElementById('multiple-choice');
 let validateEl = document.getElementById('validate')
 let scoreInputEl = document.getElementById('score-input-section');
 let gameScoreEl = document.getElementById('gameScore');
+let submitEl = document.getElementById('submit-score');
 
 
 scoreInputEl.setAttribute('style', 'display: none');
@@ -80,13 +81,13 @@ let currentQuestionText;
 function setTimer(){
     introEl.setAttribute('style','display: none' );
     countdownEl.textContent = 'Count Down';
-    countdown=5;
+    countdown=10;
     timer = setInterval(function(){
     countdownEl.textContent = countdown + ' seconds left';
     highScoreEl.textContent = 'Highscores';
         countdown--;
         if (countdown >=0) {
-            if (isWin && countdown >0) {
+            if (countdown >0) {
                 clearInterval(timer);
             }
         }
@@ -114,7 +115,7 @@ function selectAnswer (event) {
     questionIndex++;
 
     if(questionIndex===allQuestions.length){
-       winGame();
+       endGame();
         inputScoreInfo();
     } else if(questionIndex<allQuestions.length){
         showQuestion();
@@ -144,10 +145,10 @@ function showQuestion() {
 }
 
 // Function to determine game win
-function winGame(){
-    isWin=true;
+function endGame(){
+    // isWin=true;
     questionEl.textContent='';
-    multipleChoiceEl.textContent='You Win!';
+    multipleChoiceEl.textContent='your score: ' +score;
     validateEl.textContent='';
 }
 
