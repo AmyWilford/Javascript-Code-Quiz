@@ -12,6 +12,7 @@ let scoreInputEl = document.getElementById('score-input-section');
 let gameScoreEl = document.getElementById('gameScore');
 let submitEl = document.getElementById('submit-score');
 let initialsEl = document.getElementById('initials');
+let clearHighScoreEl = document.getElementById('clear-scores');
 
 
 scoreInputEl.setAttribute('style', 'display: none');
@@ -76,6 +77,7 @@ let lastQuestion = allQuestions.length-1;
 let questionIndex = 0;
 let currentQuestion;
 let currentQuestionText;
+// let previousScores;
 
 // let highscore = localStorage.getItem('score')
 // let initials = localStorage.getItem('initials')
@@ -83,18 +85,17 @@ let currentQuestionText;
 // Function to set Timer
 function setTimer(){
     introEl.setAttribute('style','display: none' );
-    countdown=50;
+    countdown=5;
     timer = setInterval(function(){
-    countdownEl.textContent = countdown + ' seconds left';
-    highScoreEl.textContent = 'View HighScores';
     countdown--;
-        if (countdown == 0) {
+    countdownEl.textContent = countdown + ' seconds left';
+        if (countdown === 0) {
             clearInterval(timer);
             countdownEl.textContent ='Your time is up!'
             endGame();
         } else if(questionIndex===allQuestions.length) {
-            countdownEl.textContent ='completed in time'
             clearInterval(timer);
+            countdownEl.textContent =''
         }
     },1000)
 }
@@ -109,6 +110,11 @@ function selectAnswer (event) {
         score++;
     } else {
         validateEl.textContent = 'Incorrect';
+        if(countdown < 5) {
+            countdownEl.textContent ='Your time is up!';
+            // clearInterval(setTimer);
+            endGame();
+        } else 
         countdown=countdown-5;
     }
 
@@ -145,33 +151,18 @@ function showQuestion() {
 
 // Function to determine game win
 function endGame(){
-    questionEl.textContent='';
-    multipleChoiceEl.textContent='your score: ' +score;
+    multipleChoiceEl.textContent = '';
+    questionEl.textContent="You're all done!";
+    gameScoreEl.textContent='Your score is: ' +score;
     validateEl.textContent='';
-    inputScoreInfo();
+    displayScoreInfo();
 }
 
 // Function save initials and score
-function inputScoreInfo(){
+function displayScoreInfo(){
     scoreInputEl.setAttribute('style', 'display: block');
     gameScoreEl.setAttribute('style', 'display: block');
-    
-    let recentScore = { 
-        initials:initialsEl.value,
-        score:score,
-    }
-    localStorage.setItem('recentScore', JSON.stringify(recentScore));
-
-    // getItem
-
-
-
-// Parse  and store  allHighScores = [];
-
-// Push new object to allHighScores = [];
-
-// Set item
-    }
+}
 
 function renderScore() {
     let lastScore = JSON.parse(localStorage.getItem('recentScore'));
@@ -192,3 +183,32 @@ function startGame(){
 startButtonEl.addEventListener('click', startGame);
 
 // init();
+submitEl.addEventListener('click', function(event){
+    event.preventDefault();
+    let recentScore = { 
+        initials:initialsEl.value,
+        score:score,
+    }
+    let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
+    previousScores.push(recentScore);
+    
+    console.log(recentScore);
+    localStorage.setItem('recentScore', JSON.stringify(previousScores));
+})
+
+highScoreEl.addEventListener('click', function(event){
+    event.preventDefault();
+    let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
+    introEl.textContent='';
+    for(i =0; i<previousScores.length; i++){
+        console.log(previousScores[i]);
+        let initalSection = document.createElement('p')
+        initalSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
+        introEl.append(initalSection)
+    }
+})
+
+// clearHighScoreEl.addEventListener('click', function(event) {
+//     window.localStorage.clear();
+//     initalSection.textContent='';
+// })

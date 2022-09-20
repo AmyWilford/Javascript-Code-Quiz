@@ -20,6 +20,9 @@ main {
     padding-bottom: 4rem;
     color: #052B15;
 }
+#game-desc {
+    padding: 0px 6rem;
+}
 button {
     background-color: #052B15;
     color: #E5F8F0;
@@ -51,4 +54,11 @@ button:active {
 #validate {
     color: grey;
     font-style: italic;
+}
+
+input[type=text]{
+    border: none;
+    border-bottom: 2px solid #052B15;
+    padding-top: 30px;
+    margin-bottom: 10px;
 }

@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <title>JavaScript Quiz</title>
+    <title>JavaScript Terms Quiz</title>
 </head>
 <body>
     <main>
         <div id="game-area">
             <div id="game-header">
-                <div id="highscore"></div>
+                <button id="highscore">View HighScores</button>
                 <div id="countdown"></div>
             </div>
             <div id="intro-section">
-                <h1>JavaScript Quiz: Text your knowledge</h1>
-                <span>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answerws will penalize your score/time by ten seconds!</span>
+                <h1>JavaScript Terminology: Text your knowledge</h1>
+                <p id="game-desc">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!<br><br>Good Luck!</p>
                 <br>
                 <button id="button-start">Start Quiz</button>
             </div>
@@ -32,14 +32,14 @@
                 </span>
             </div>
             <div id="score-input-section">
+                <p id="gameScore"></p>
                 <form>
-                    <label for="initials">Your Initials:</label>
-                    <br>
+                    <label for="initials">Enter your initials:</label>
                     <input type="text" id="initials" name="initals" autocomplete="off">
                 </form>
-                <span id="gameScore"></span>
                 <button id="submit-score">Submit</button>
             </div>
+
         </div>
     </main>
     <script src="assets/js/script.js"></script>
