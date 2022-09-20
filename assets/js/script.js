@@ -8,6 +8,12 @@ let questionEl = document.getElementById('question');
 let answerButtons = document.querySelectorAll('.answer');
 let multipleChoiceEl = document.getElementById('multiple-choice');
 let validateEl = document.getElementById('validate')
+let scoreInputEl = document.getElementById('score-input-section');
+let gameScoreEl = document.getElementById('gameScore');
+
+
+scoreInputEl.setAttribute('style', 'display: none');
+gameScoreEl.setAttribute('style', 'display: none');
 
 // Array of all question objects
 let allQuestions = [
@@ -109,7 +115,7 @@ function selectAnswer (event) {
 
     if(questionIndex===allQuestions.length){
        winGame();
-        // inputScoreInfo();
+        inputScoreInfo();
     } else if(questionIndex<allQuestions.length){
         showQuestion();
     }
@@ -140,22 +146,34 @@ function showQuestion() {
 // Function to determine game win
 function winGame(){
     isWin=true;
-    validateEl.textContent='You Win!';
+    questionEl.textContent='';
+    multipleChoiceEl.textContent='You Win!';
+    validateEl.textContent='';
 }
 
 // Function to determine game loss
 function loseGame() {
-    validateEl.textContent='You Lose!';
+    questionEl.textContent='';
+    multipleChoiceEl.textContent='You Lose!';
 }
 
 
 // Function save initials and score
-// function inputScoreInfo(){}
+function inputScoreInfo(){
+    scoreInputEl.setAttribute('style', 'display: block');
+    gameScoreEl.setAttribute('style', 'display: block');
+}
+
+// To load highscores upon page reload
+function init() {
+    // renderHighscore();
+}
 
 // Function to start the Game
 function startGame(){
     setTimer();
     showQuestion();
 }
-
 startButtonEl.addEventListener('click', startGame);
+
+init();
