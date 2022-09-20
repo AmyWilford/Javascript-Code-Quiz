@@ -59,7 +59,7 @@ let allQuestions = [
 ]
 
 let randomQuestion;
-let score;
+let score = 0;
 let isWin = false;
 let timer;
 let countdown;
@@ -74,8 +74,7 @@ let currentQuestionText;
 function setTimer(){
     introEl.setAttribute('style','display: none' );
     countdownEl.textContent = 'Count Down';
-    highScoreEl.textContent = 'Highscores';
-    countdown=10;
+    countdown=5;
     timer = setInterval(function(){
     countdownEl.textContent = countdown + ' seconds left';
     highScoreEl.textContent = 'Highscores';
@@ -83,13 +82,12 @@ function setTimer(){
         if (countdown >=0) {
             if (isWin && countdown >0) {
                 clearInterval(timer);
-                // winGame();
             }
         }
         if (countdown == 0) {
             clearInterval(timer);
             countdownEl.textContent ='Your time is up!'
-            // loseGame();
+            loseGame();
         }
     },1000)
 }
@@ -102,25 +100,24 @@ function selectAnswer (event) {
     if (selectedAnswerButton.value == 1){
         validateEl.textContent = 'Correct';
         score++;
-        questionIndex++;
-        firstQuestion();
     } else {
         validateEl.textContent = 'Incorrect';
         countdown=countdown-5;
-        questionIndex++;
-        firstQuestion();
     }
-    // questionIndex++;
-    // if(questionIndex===allQuestions.length){
-    //     // inputScoreInfo();
-    // } else {
-    //     loadNextQuestion();
-    // }
- 
-}
+
+    questionIndex++;
+
+    if(questionIndex===allQuestions.length){
+       winGame();
+        // inputScoreInfo();
+    } else if(questionIndex<allQuestions.length){
+        showQuestion();
+    }
+ }
 
 // Function to show questions
 function showQuestion() {
+    // highScoreEl.textContent = 'Highscore:' + score;
     multipleChoiceEl.setAttribute('style', 'display: flex')
     // Pick the first question in the array of questions
     currentQuestion = allQuestions[questionIndex];
@@ -142,15 +139,14 @@ function showQuestion() {
 
 // Function to determine game win
 function winGame(){
-    if (isWin == true) {
-        multipleChoiceEl.textContent =' You Win!'
-    } return;
-    // inputScoreInfo();
-
+    isWin=true;
+    validateEl.textContent='You Win!';
 }
 
 // Function to determine game loss
-// function loseGame() {}
+function loseGame() {
+    validateEl.textContent='You Lose!';
+}
 
 
 // Function save initials and score
