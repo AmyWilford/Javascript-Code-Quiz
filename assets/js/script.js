@@ -151,7 +151,6 @@ function endGame(){
     inputScoreInfo();
 }
 
-
 // Function save initials and score
 function inputScoreInfo(){
     scoreInputEl.setAttribute('style', 'display: block');
@@ -180,15 +179,7 @@ function renderScore() {
     }
 
 
-// function renderHighscore() {
-//     let initials = localStorage.getItem('initials');
-//     let score = localStorage.getItem('score');
-//     if(!email || !password) {
-//         return;
-//     }
-//     highScoreEl.textContent = score + ' ' + initials;
-// }
-// To load highscores upon page reload
+
 // function init() {
 //     renderHighscore();
 // }
@@ -201,9 +192,3 @@ function startGame(){
 startButtonEl.addEventListener('click', startGame);
 
 // init();
-
-// submitEl.addEventListener('click', function(event) {
-//     event.preventDefault();
-//     initials = submitEl.value;
-    
-// }
