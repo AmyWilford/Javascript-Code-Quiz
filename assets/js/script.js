@@ -67,6 +67,8 @@ let answerList;
 let questionAnswers;
 let lastQuestion = allQuestions.length-1;
 let questionIndex = 0;
+let currentQuestion;
+let currentQuestionText;
 
 // Function to set Timer
 function setTimer(){
@@ -84,7 +86,7 @@ function setTimer(){
                 // winGame();
             }
         }
-        if (countdown === 0) {
+        if (countdown == 0) {
             clearInterval(timer);
             countdownEl.textContent ='Your time is up!'
             // loseGame();
@@ -94,26 +96,37 @@ function setTimer(){
 // function to select right Answer
 function selectAnswer (event) {
     let selectedAnswerButton = event.target;
+    // log to cosole if correct answer
     console.log(selectedAnswerButton.value);
-    console.log()
     // if the selected answerbutton's value = 1
     if (selectedAnswerButton.value == 1){
         validateEl.textContent = 'Correct';
         score++;
+        questionIndex++;
+        firstQuestion();
     } else {
         validateEl.textContent = 'Incorrect';
         countdown=countdown-5;
+        questionIndex++;
+        firstQuestion();
     }
+    // questionIndex++;
+    // if(questionIndex===allQuestions.length){
+    //     // inputScoreInfo();
+    // } else {
+    //     loadNextQuestion();
+    // }
+ 
 }
 
 // Function to show questions
 function firstQuestion() {
     multipleChoiceEl.setAttribute('style', 'display: flex')
     // Pick the first question in the array of questions
-    let currentQuestion = allQuestions[questionIndex];
+    currentQuestion = allQuestions[questionIndex];
     console.log(currentQuestion)
 
-    let currentQuestionText = currentQuestion.question;
+    currentQuestionText = currentQuestion.question;
     console.log(currentQuestionText);
 
     questionEl.textContent = currentQuestionText;
@@ -123,21 +136,25 @@ function firstQuestion() {
         console.log(currentQuestion.answers[i]['text']);
         answerButtons[i].value = currentQuestion.answers[i]['status'];
     }
+    // add an event listener to each button to select answer on a click
     answerButtons.forEach(button => {button.addEventListener('click', selectAnswer)})
 }
 
-// when right > show new question
-// when wrong > deduct time from the clock
-
 // Function to determine game win
-// function winGame(){}
+function winGame(){
+    if (isWin == true) {
+        multipleChoiceEl.textContent =' You Win!'
+    } return;
+    // inputScoreInfo();
+
+}
 
 // Function to determine game loss
 // function loseGame() {}
 
 
 // Function save initials and score
-// function saveInfo(){}
+// function inputScoreInfo(){}
 
 // Function to start the Game
 function startGame(){
