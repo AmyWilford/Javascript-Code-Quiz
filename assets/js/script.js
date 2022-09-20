@@ -11,6 +11,7 @@ let validateEl = document.getElementById('validate')
 let scoreInputEl = document.getElementById('score-input-section');
 let gameScoreEl = document.getElementById('gameScore');
 let submitEl = document.getElementById('submit-score');
+let initialsEl = document.getElementById('initials');
 
 
 scoreInputEl.setAttribute('style', 'display: none');
@@ -67,7 +68,6 @@ let allQuestions = [
 
 let randomQuestion;
 let score = 0;
-let isWin = false;
 let timer;
 let countdown;
 let answerList;
@@ -77,24 +77,24 @@ let questionIndex = 0;
 let currentQuestion;
 let currentQuestionText;
 
+// let highscore = localStorage.getItem('score')
+// let initials = localStorage.getItem('initials')
+
 // Function to set Timer
 function setTimer(){
     introEl.setAttribute('style','display: none' );
-    countdownEl.textContent = 'Count Down';
-    countdown=10;
+    countdown=50;
     timer = setInterval(function(){
     countdownEl.textContent = countdown + ' seconds left';
-    highScoreEl.textContent = 'Highscores';
-        countdown--;
-        if (countdown >=0) {
-            if (countdown >0) {
-                clearInterval(timer);
-            }
-        }
+    highScoreEl.textContent = 'View HighScores';
+    countdown--;
         if (countdown == 0) {
             clearInterval(timer);
             countdownEl.textContent ='Your time is up!'
-            loseGame();
+            endGame();
+        } else if(questionIndex===allQuestions.length) {
+            countdownEl.textContent ='completed in time'
+            clearInterval(timer);
         }
     },1000)
 }
@@ -115,8 +115,7 @@ function selectAnswer (event) {
     questionIndex++;
 
     if(questionIndex===allQuestions.length){
-       endGame();
-        inputScoreInfo();
+        endGame();
     } else if(questionIndex<allQuestions.length){
         showQuestion();
     }
@@ -146,16 +145,10 @@ function showQuestion() {
 
 // Function to determine game win
 function endGame(){
-    // isWin=true;
     questionEl.textContent='';
     multipleChoiceEl.textContent='your score: ' +score;
     validateEl.textContent='';
-}
-
-// Function to determine game loss
-function loseGame() {
-    questionEl.textContent='';
-    multipleChoiceEl.textContent='You Lose!';
+    inputScoreInfo();
 }
 
 
@@ -163,12 +156,42 @@ function loseGame() {
 function inputScoreInfo(){
     scoreInputEl.setAttribute('style', 'display: block');
     gameScoreEl.setAttribute('style', 'display: block');
-}
+    
+    let recentScore = { 
+        initials:initialsEl.value,
+        score:score,
+    }
+    localStorage.setItem('recentScore', JSON.stringify(recentScore));
 
+    // getItem
+
+
+
+// Parse  and store  allHighScores = [];
+
+// Push new object to allHighScores = [];
+
+// Set item
+    }
+
+function renderScore() {
+    let lastScore = JSON.parse(localStorage.getItem('recentScore'));
+    console.log(lastScore);
+    }
+
+
+// function renderHighscore() {
+//     let initials = localStorage.getItem('initials');
+//     let score = localStorage.getItem('score');
+//     if(!email || !password) {
+//         return;
+//     }
+//     highScoreEl.textContent = score + ' ' + initials;
+// }
 // To load highscores upon page reload
-function init() {
-    // renderHighscore();
-}
+// function init() {
+//     renderHighscore();
+// }
 
 // Function to start the Game
 function startGame(){
@@ -177,4 +200,10 @@ function startGame(){
 }
 startButtonEl.addEventListener('click', startGame);
 
-init();
+// init();
+
+// submitEl.addEventListener('click', function(event) {
+//     event.preventDefault();
+//     initials = submitEl.value;
+    
+// }
