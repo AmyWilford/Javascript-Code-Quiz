@@ -120,7 +120,7 @@ function selectAnswer (event) {
 }
 
 // Function to show questions
-function firstQuestion() {
+function showQuestion() {
     multipleChoiceEl.setAttribute('style', 'display: flex')
     // Pick the first question in the array of questions
     currentQuestion = allQuestions[questionIndex];
@@ -159,7 +159,7 @@ function winGame(){
 // Function to start the Game
 function startGame(){
     setTimer();
-    firstQuestion();
+    showQuestion();
 }
 
 startButtonEl.addEventListener('click', startGame);
