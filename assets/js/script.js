@@ -12,7 +12,7 @@ let scoreInputEl = document.getElementById('score-input-section');
 let gameScoreEl = document.getElementById('gameScore');
 let submitEl = document.getElementById('submit-score');
 let initialsEl = document.getElementById('initials');
-let clearHighScoreEl = document.getElementById('clear-scores');
+let viewHighScores;
 
 
 scoreInputEl.setAttribute('style', 'display: none');
@@ -67,20 +67,15 @@ let allQuestions = [
     }
 ]
 
-let randomQuestion;
 let score = 0;
 let timer;
 let countdown;
-let answerList;
-let questionAnswers;
-let lastQuestion = allQuestions.length-1;
+// let answerList;
+// let questionAnswers;
+// let lastQuestion = allQuestions.length-1;
 let questionIndex = 0;
 let currentQuestion;
 let currentQuestionText;
-// let previousScores;
-
-// let highscore = localStorage.getItem('score')
-// let initials = localStorage.getItem('initials')
 
 // Function to set Timer
 function setTimer(){
@@ -112,7 +107,7 @@ function selectAnswer (event) {
         validateEl.textContent = 'Incorrect';
         if(countdown < 5) {
             countdownEl.textContent ='Your time is up!';
-            // clearInterval(setTimer);
+            clearInterval(setTimer);
             endGame();
         } else 
         countdown=countdown-5;
@@ -122,6 +117,7 @@ function selectAnswer (event) {
 
     if(questionIndex===allQuestions.length){
         endGame();
+        displayScoreInfo();
     } else if(questionIndex<allQuestions.length){
         showQuestion();
     }
@@ -129,7 +125,6 @@ function selectAnswer (event) {
 
 // Function to show questions
 function showQuestion() {
-    // highScoreEl.textContent = 'Highscore:' + score;
     multipleChoiceEl.setAttribute('style', 'display: flex')
     // Pick the first question in the array of questions
     currentQuestion = allQuestions[questionIndex];
@@ -151,11 +146,11 @@ function showQuestion() {
 
 // Function to determine game win
 function endGame(){
-    multipleChoiceEl.textContent = '';
+    multipleChoiceEl.setAttribute('style', 'display:none')
     questionEl.textContent="You're all done!";
-    gameScoreEl.textContent='Your score is: ' +score;
+    gameScoreEl.textContent='Your score is: ' + score;
     validateEl.textContent='';
-    displayScoreInfo();
+    // displayScoreInfo();
 }
 
 // Function save initials and score
@@ -168,8 +163,6 @@ function renderScore() {
     let lastScore = JSON.parse(localStorage.getItem('recentScore'));
     console.log(lastScore);
     }
-
-
 
 // function init() {
 //     renderHighscore();
@@ -196,17 +189,27 @@ submitEl.addEventListener('click', function(event){
     localStorage.setItem('recentScore', JSON.stringify(previousScores));
 })
 
+
 highScoreEl.addEventListener('click', function(event){
     event.preventDefault();
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
     introEl.textContent='';
     for(i =0; i<previousScores.length; i++){
         console.log(previousScores[i]);
-        let initalSection = document.createElement('p')
-        initalSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
-        introEl.append(initalSection)
+        let viewHighscoresEl = document.getElementById('viewHighscores');
+        let initialSection = document.createElement('p')
+        initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
+        viewHighscoresEl.append(initialSection)
+        if (previousScores.length > 3) {
+            previousScores.shift();
+            console.log(previousScores.length);
+            console.log(previousScores);
+        }
     }
 })
+
+let resetButton=document.getElementById('reset-game')
+    // resetButton.addEventListener('click', reset);
 
 // clearHighScoreEl.addEventListener('click', function(event) {
 //     window.localStorage.clear();
