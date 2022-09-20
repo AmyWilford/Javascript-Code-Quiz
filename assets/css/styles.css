@@ -37,8 +37,12 @@ button {
     color: blueviolet;
 }
 #multiple-choice {
-    display: flex;
     flex-direction: column;
     width: 50%;
     margin: auto;
+    display: none;
+}
+#validate {
+    color: grey;
+    font-style: italic;
 }

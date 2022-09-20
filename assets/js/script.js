@@ -5,7 +5,7 @@ let countdownEl =document.getElementById('countdown');
 let introEl = document.getElementById('intro-section');
 let startButtonEl = document.getElementById('button-start');
 let questionEl = document.getElementById('question');
-let answerButtons = document.querySelectorAll('answer');
+let answerButtons = document.querySelectorAll('.answer');
 let multipleChoiceEl = document.getElementById('multiple-choice');
 let validateEl = document.getElementById('validate')
 
@@ -64,6 +64,9 @@ let isWin = false;
 let timer;
 let countdown;
 let answerList;
+let questionAnswers;
+let lastQuestion = allQuestions.length-1;
+let questionIndex = 0;
 
 // Function to set Timer
 function setTimer(){
@@ -84,31 +87,43 @@ function setTimer(){
         if (countdown === 0) {
             clearInterval(timer);
             countdownEl.textContent ='Your time is up!'
-            // looseGame();
+            // loseGame();
         }
     },1000)
 }
+// function to select right Answer
+function selectAnswer (event) {
+    let selectedAnswerButton = event.target;
+    console.log(selectedAnswerButton.value);
+    console.log()
+    // if the selected answerbutton's value = 1
+    if (selectedAnswerButton.value == 1){
+        validateEl.textContent = 'Correct';
+        score++;
+    } else {
+        validateEl.textContent = 'Incorrect';
+        countdown=countdown-5;
+    }
+}
+
 // Function to show questions
 function firstQuestion() {
-    // Pick random question from list of questions
-    randomQuestion = allQuestions[Math.floor(Math.random()*allQuestions.length)]
-    console.log(randomQuestion);
-    
-    // Determine index of question
-    let questionIndex = allQuestions.indexOf(randomQuestion);
-    console.log(questionIndex);
-    
-    // Update question-section element with question text
-    let selectedQuestion = allQuestions[questionIndex].question;
-    questionEl.textContent = selectedQuestion;
-    console.log(selectedQuestion);
-    for(let i=0; i<4; i++){
-       let allAnswers= allQuestions[questionIndex].answers[i]['text'];
-       console.log(allAnswers);
-        let answerButtons = document.createElement('button');
-        answerButtons.textContent = allAnswers;
-        multipleChoiceEl.appendChild(answerButtons)
+    multipleChoiceEl.setAttribute('style', 'display: flex')
+    // Pick the first question in the array of questions
+    let currentQuestion = allQuestions[questionIndex];
+    console.log(currentQuestion)
+
+    let currentQuestionText = currentQuestion.question;
+    console.log(currentQuestionText);
+
+    questionEl.textContent = currentQuestionText;
+
+    for(let i = 0; i<4; i++){
+        answerButtons[i].innerText = currentQuestion.answers[i]['text'];
+        console.log(currentQuestion.answers[i]['text']);
+        answerButtons[i].value = currentQuestion.answers[i]['status'];
     }
+    answerButtons.forEach(button => {button.addEventListener('click', selectAnswer)})
 }
 
 // when right > show new question
