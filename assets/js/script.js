@@ -31,37 +31,37 @@ let allQuestions = [
     {
         question: 'What is the correct syntax for referring to an external script called name.js?',
         answers: [
-            {text: '<script src="name.js">', status: 1},
+            {text: '<script access="name.js">', status: 0},
             {text: '<script href="name.js">', status: 0},
-            {text: '<script name="name.js">', status: 0},
-            {text: '<script access="name.js">', status: 0}
+            {text: '<script file="name.js">', status: 0},
+            {text: '<script src="name.js">', status: 1}
         ]
     },
     {
         question: 'Where is the correct place to insert JavaScript in your HTML file?',
         answers: [
-            {text: 'At the very bottom of the <body> section', status: 1},
-            {text: 'Enter it twice, once in the <head> section and once in the <body> section are correct', status: 0},
+            {text: 'At the bottom of the <body> section before the closing tag', status: 1},
+            {text: 'Enter it twice, once in the <head> section and once in the <body> section', status: 0},
             {text: 'The <head> section', status: 0},
-            {text: 'Anywhere in the <body> section', status: 0}
+            {text: 'You can place it anywhere in the document as long as it is correctly linked', status: 0}
         ]
     },
     {
         question: 'How do you write "Hello World" in an alert box?',
         answers: [
-            {text: 'alertBox("Hello World")', status: 1},
-            {text: 'alert("Hello World")', status: 0},
-            {text: 'msg', status: 0},
-            {text: 'answer 4', status: 0}
+            {text: 'alertBox("Hello World")', status:0},
+            {text: 'msg("Hello World")', status: 0},
+            {text: 'alert("Hello World")', status: 1},
+            {text: 'attn("Hello World")', status: 0}
         ]
     },
     {
-        question: 'question 5',
+        question: 'Which operator is used to assign a value to a variable?',
         answers: [
-            {text: 'answer 1', status: 1},
-            {text: 'answer 2', status: 0},
-            {text: 'answer 3', status: 0},
-            {text: 'answer 4', status: 0}
+            {text: '=', status: 1},
+            {text: '*', status: 0},
+            {text: '-', status: 0},
+            {text: '/', status: 0}
         ]
     }
 ]
