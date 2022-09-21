@@ -74,10 +74,6 @@ let allQuestions = [
     }
 ]
 
-
-
-scoreInputEl.setAttribute('style', 'display: none');
-
 // Function to reload page after reset event. Resets initial styles to original game load
 function reloadPage(event){
     introEl.setAttribute('style', 'display:block');
@@ -110,11 +106,9 @@ function setTimer(){
     },1000)
 }
 
-// function to select right Answer
+// function to select right Answer from multiple choice selection
 function selectAnswer (event) {
     let selectedAnswerButton = event.target;
-    // log to cosole if correct answer
-    console.log(selectedAnswerButton.value);
     // if the selected answerbutton's value = 1, it is correct
     if (selectedAnswerButton.value == 1){
         validateEl.textContent = 'Correct';
@@ -141,22 +135,19 @@ function selectAnswer (event) {
     }
  }
 
-// Function to show questions
+// Function to show questions consecutively
 function showQuestion() {
     multipleChoiceEl.setAttribute('style', 'display: flex')
     questionEl.setAttribute('style', 'display: block');
     // The question index is set to zero upon game load - which selects the first question in the list of available questions
     currentQuestion = allQuestions[questionIndex];
-    console.log(currentQuestion)
     // Pulls the text of the question from the array of available question objects
     currentQuestionText = currentQuestion.question;
-    console.log(currentQuestionText);
     // The question element text content displays the question text
     questionEl.textContent = currentQuestionText;
     // Loop through answers linked to each question object and pull their text and status
     for(let i = 0; i<4; i++){
         answerButtons[i].innerText = currentQuestion.answers[i]['text'];
-        console.log(currentQuestion.answers[i]['text']);
         answerButtons[i].value = currentQuestion.answers[i]['status'];
     }
     // add an event listener to each button to select answer on a click
@@ -184,6 +175,7 @@ function displayScoreInfo(){
 function clearScores(event){
     window.localStorage.clear();
     viewHighscoresEl.textContent = '';
+    console.log('cleared scores');
 }
 
 // Function to start the Game
@@ -205,8 +197,6 @@ submitEl.addEventListener('click', function(event){
         alert('Please enter your initials');
     } else {
         previousScores.push(recentScore);
-        console.log(recentScore.initials);
-        console.log(recentScore);
         localStorage.setItem('recentScore', JSON.stringify(previousScores));
         scoreInputEl.setAttribute('style','display: none');
         resetButton.setAttribute('style','display:block');
@@ -214,11 +204,11 @@ submitEl.addEventListener('click', function(event){
         gameHeaderEl.append(resetButton);
     }
     initialsEl.value='';
-    
 })
+
 // Event Listener to view highscores from local store when button clicked
 highScoreEl.addEventListener('click', function(event){
-
+    // Set display: none of elements which will disappear on click of highscoreEl
     event.preventDefault();
     scoreInputEl.setAttribute('style', 'display:none');
     questionEl.setAttribute('style', 'display:none');
@@ -228,29 +218,31 @@ highScoreEl.addEventListener('click', function(event){
     validateEl.setAttribute('style', 'display: none');
     scoreInputEl.setAttribute('style', 'display: none');
 
+    // Parse through stored high scores - and store in the array previousScores. Lopp through array and log each index of score and initials to newly created <p>. Append to view highscoreEl
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
+    // Reset textContent to empty string at start of event that scores are not logged repetatively over consecutive clicks
     viewHighscoresEl.textContent='';
     for(i =0; i<previousScores.length; i++){
-        console.log(previousScores[i]);
         let initialSection = document.createElement('p')
         initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
         viewHighscoresEl.append(initialSection)
     }
-
+    // Make reset button appear. Set text content and append to game header
     resetButton.setAttribute('style','display:block');
     resetButton.textContent='Go Home';
     gameHeaderEl.append(resetButton);
 
+    // Make clear scores button. Set text content and append to viewHighScoresEl
     clearButton.setAttribute('style','display:block');
     clearButton.textContent='ClearScores';
     viewHighscoresEl.append(clearButton);
 })
 
+// Event listener to clear scores on click of <clear scores button> 
 clearButton.addEventListener('click', clearScores);
 
+// Event listener to reload page on click of <go home button>
 resetButton.addEventListener('click', reloadPage);
 
-
-
-// Event Listener to start the game when the start button is clicked
+// Event Listener to start the game on click of <start quiz button>
 startButtonEl.addEventListener('click', startGame);
