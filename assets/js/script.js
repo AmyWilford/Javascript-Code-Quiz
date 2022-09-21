@@ -33,7 +33,7 @@ let allQuestions = [
             {text: '<js>', status: 0},
             {text: '<script>', status: 1},
             {text: '<javascript>', status: 0},
-            {text: '<Scripting', status:0 }
+            {text: '<link>', status:0 }
         ]
     },
     {
@@ -91,11 +91,11 @@ function setTimer(){
     questionIndex = 0;
     introEl.setAttribute('style','display: none' );
     countdownEl.setAttribute('style','display: block');
-    countdown=60;
+    countdown=10;
     timer = setInterval(function(){
     countdownEl.textContent = 'Time: '+ countdown;
     countdown--;
-        if (countdown === 0) {
+        if (countdown <= 0) {
             endGame();
             countdownEl.textContent ='Your time is up!'
             clearInterval(timer);
