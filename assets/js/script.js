@@ -91,7 +91,7 @@ function setTimer(){
     questionIndex = 0;
     introEl.setAttribute('style','display: none' );
     countdownEl.setAttribute('style','display: block');
-    countdown=10;
+    countdown=60;
     timer = setInterval(function(){
     countdownEl.textContent = 'Time: '+ countdown;
     countdown--;
