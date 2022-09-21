@@ -68,17 +68,16 @@ let allQuestions = [
 let score = 0;
 let timer;
 let countdown;
-// let answerList;
-// let questionAnswers;
-// let lastQuestion = allQuestions.length-1;
 let questionIndex = 0;
 let currentQuestion;
 let currentQuestionText;
 let recentScore;
 
-scoreInputEl.setAttribute('style', 'display: none');
-gameScoreEl.setAttribute('style', 'display: none');
-multipleChoiceEl.setAttribute('style', 'display: none')
+function loadPage(){
+    scoreInputEl.setAttribute('style', 'display: none');
+    gameScoreEl.setAttribute('style', 'display: none');
+    multipleChoiceEl.setAttribute('style', 'display: none')
+}
 
 
 // Function to set Timer
@@ -180,7 +179,10 @@ submitEl.addEventListener('click', function(event){
     
     console.log(recentScore);
     localStorage.setItem('recentScore', JSON.stringify(previousScores));
-    submitEl.setAttribute('style','display: none');
+    scoreInputEl.setAttribute('style','display: none');
+    resetButton.textContent='Reset Quiz';
+    gameHeaderEl.append(resetButton);
+    
 })
 
 highScoreEl.addEventListener('click', function(event){
