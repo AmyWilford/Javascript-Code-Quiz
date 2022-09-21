@@ -74,6 +74,7 @@ let countdown;
 let questionIndex = 0;
 let currentQuestion;
 let currentQuestionText;
+let recentScore;
 
 scoreInputEl.setAttribute('style', 'display: none');
 gameScoreEl.setAttribute('style', 'display: none');
@@ -170,7 +171,7 @@ startButtonEl.addEventListener('click', startGame);
 
 submitEl.addEventListener('click', function(event){
     event.preventDefault();
-    let recentScore = { 
+    recentScore = { 
         initials:initialsEl.value,
         score:score,
     }
@@ -179,6 +180,7 @@ submitEl.addEventListener('click', function(event){
     
     console.log(recentScore);
     localStorage.setItem('recentScore', JSON.stringify(previousScores));
+    submitEl.setAttribute('style','display: none');
 })
 
 highScoreEl.addEventListener('click', function(event){
@@ -187,10 +189,11 @@ highScoreEl.addEventListener('click', function(event){
     viewHighscoresEl.textContent='';
     for(i =0; i<previousScores.length; i++){
         console.log(previousScores[i]);
-        if (previousScores.length > 3) {
-            previousScores.shift();
-            console.log(previousScores.length);
-        }
+        // if (previousScores.length >3) {
+        //     previousScores.shift();
+        //     console.log(previousScores.length);
+        //     console.log(previousScores);
+        // } 
         let initialSection = document.createElement('p')
         initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
         viewHighscoresEl.append(initialSection)
@@ -198,7 +201,6 @@ highScoreEl.addEventListener('click', function(event){
     resetButton.textContent='Reset Quiz';
     gameHeaderEl.append(resetButton);
 })
-
 
 resetButton.addEventListener('click', function(event){
     console.log('gamereset')
