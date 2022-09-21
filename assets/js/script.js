@@ -15,42 +15,43 @@ let initialsEl = document.getElementById('initials');
 let viewHighscoresEl = document.getElementById('viewHighscores');
 // let viewHighScores;
 let resetButton = document.createElement('button');
+let clearButton = document.createElement('button');
 
 // Array of all question objects
 let allQuestions = [
     {
-        question: 'question 1',
+        question: 'Inside which HTML element do we put the JavaScript?',
         answers: [
-            {text: 'answer 1', status: 1},
-            {text: 'answer 2', status: 0},
-            {text: 'answer 3', status: 0},
-            {text: 'answer 4', status:0 }
+            {text: '<js>', status: 0},
+            {text: '<script>', status: 1},
+            {text: '<javascript>', status: 0},
+            {text: '<Scripting', status:0 }
         ]
     },
     {
-        question: 'question 2',
+        question: 'What is the correct syntax for referring to an external script called name.js?',
         answers: [
-            {text: 'answer 1', status: 1},
-            {text: 'answer 2', status: 0},
-            {text: 'answer 3', status: 0},
-            {text: 'answer 4', status: 0}
+            {text: '<script src="name.js">', status: 1},
+            {text: '<script href="name.js">', status: 0},
+            {text: '<script name="name.js">', status: 0},
+            {text: '<script access="name.js">', status: 0}
         ]
     },
     {
-        question: 'question 3',
+        question: 'Where is the correct place to insert JavaScript in your HTML file?',
         answers: [
-            {text: 'answer 1', status: 1},
-            {text: 'answer 2', status: 0},
-            {text: 'answer 3', status: 0},
-            {text: 'answer 4', status: 0}
+            {text: 'At the very bottom of the <body> section', status: 1},
+            {text: 'Enter it twice, once in the <head> section and once in the <body> section are correct', status: 0},
+            {text: 'The <head> section', status: 0},
+            {text: 'Anywhere in the <body> section', status: 0}
         ]
     },
     {
-        question: 'question 4',
+        question: 'How do you write "Hello World" in an alert box?',
         answers: [
-            {text: 'answer 1', status: 1},
-            {text: 'answer 2', status: 0},
-            {text: 'answer 3', status: 0},
+            {text: 'alertBox("Hello World")', status: 1},
+            {text: 'alert("Hello World")', status: 0},
+            {text: 'msg', status: 0},
             {text: 'answer 4', status: 0}
         ]
     },
@@ -192,23 +193,30 @@ submitEl.addEventListener('click', function(event){
         score:score,
     }
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
-    previousScores.push(recentScore);
-    
-    console.log(recentScore);
-    localStorage.setItem('recentScore', JSON.stringify(previousScores));
-    scoreInputEl.setAttribute('style','display: none');
-    resetButton.setAttribute('style','display:block');
-    resetButton.textContent='Reset Quiz';
-    gameHeaderEl.append(resetButton);
+    if(recentScore.initials.length <= 0){
+        alert('Please enter your initials');
+    } else {
+        previousScores.push(recentScore);
+        console.log(recentScore.initials);
+        console.log(recentScore);
+        localStorage.setItem('recentScore', JSON.stringify(previousScores));
+        scoreInputEl.setAttribute('style','display: none');
+        resetButton.setAttribute('style','display:block');
+        resetButton.textContent='Reset Quiz';
+        gameHeaderEl.append(resetButton);
+    }
+    initialsEl.value='';
     
 })
 // Event Listener to view highscores from local store when button clicked
 highScoreEl.addEventListener('click', function(event){
+
     event.preventDefault();
     scoreInputEl.setAttribute('style', 'display:none');
     questionEl.setAttribute('style', 'display:none');
     multipleChoiceEl.setAttribute('style', 'display:none');
     introEl.setAttribute('style','display:none');
+
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
     viewHighscoresEl.textContent='';
     for(i =0; i<previousScores.length; i++){
@@ -221,7 +229,18 @@ highScoreEl.addEventListener('click', function(event){
     resetButton.setAttribute('style','display:block');
     resetButton.textContent='Reset Quiz';
     gameHeaderEl.append(resetButton);
+
+    // clearButton.setAttribute('style','display:block');
+    // clearButton.textContent='ClearScores';
+    // viewHighscoresEl.append(clearButton);
 })
+
+
+
+// function clearScores(event){
+//     window.localStorage.clear();
+// }
+// clearButton.addEventListener('click', clearScores);
 
 resetButton.addEventListener('click', reloadPage);
 
