@@ -106,15 +106,17 @@ function selectAnswer (event) {
         // questionIndex++;
     } else {
         validateEl.textContent = 'Incorrect';
-        countdown=-5
         if (countdown<=5) {
             countdown=0;
-        } else 
-            return;    }
-    if(questionIndex===allQuestions.length){
+        } else {
+            countdown=-5;
+        }
+    }
+    questionIndex++;
+    if(questionIndex===allQuestions.length || countdown ==0){
+        clearInterval(setTimer);
         endGame();
     } else if(questionIndex<allQuestions.length){
-        questionIndex++
         showQuestion();
     }
  }
