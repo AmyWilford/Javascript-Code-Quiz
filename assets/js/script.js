@@ -13,9 +13,17 @@ let gameScoreEl = document.getElementById('gameScore');
 let submitEl = document.getElementById('submit-score');
 let initialsEl = document.getElementById('initials');
 let viewHighscoresEl = document.getElementById('viewHighscores');
-// let viewHighScores;
 let resetButton = document.createElement('button');
 let clearButton = document.createElement('button');
+
+// Set global variables
+let score = 0;
+let timer;
+let countdown;
+let questionIndex;
+let currentQuestion;
+let currentQuestionText;
+let recentScore;
 
 // Array of all question objects
 let allQuestions = [
@@ -66,13 +74,7 @@ let allQuestions = [
     }
 ]
 
-let score = 0;
-let timer;
-let countdown;
-let questionIndex;
-let currentQuestion;
-let currentQuestionText;
-let recentScore;
+
 
 scoreInputEl.setAttribute('style', 'display: none');
 
@@ -107,6 +109,7 @@ function setTimer(){
         }
     },1000)
 }
+
 // function to select right Answer
 function selectAnswer (event) {
     let selectedAnswerButton = event.target;
@@ -127,6 +130,7 @@ function selectAnswer (event) {
     }
     // When an answer button is clicked, the question index will increase by one, to load the next question
     questionIndex++;
+
     // If the question index = the number of available questions, or if the countdown clock hits zero, run gameEnd function
     if(questionIndex===allQuestions.length || countdown ==0){
         clearInterval(setTimer);
@@ -176,13 +180,17 @@ function displayScoreInfo(){
     gameScoreEl.setAttribute('style', 'display: block');
 }
 
+// Function to clear scores
+function clearScores(event){
+    window.localStorage.clear();
+    viewHighscoresEl.textContent = '';
+}
+
 // Function to start the Game
 function startGame(){
     setTimer();
     showQuestion();
 }
-// Event Listener to start the game when the start button is clicked
-startButtonEl.addEventListener('click', startGame);
 
 // Event listener to accept and store score and submitted initials on button click
 submitEl.addEventListener('click', function(event){
@@ -216,6 +224,9 @@ highScoreEl.addEventListener('click', function(event){
     questionEl.setAttribute('style', 'display:none');
     multipleChoiceEl.setAttribute('style', 'display:none');
     introEl.setAttribute('style','display:none');
+    countdownEl.setAttribute('style', 'display: none');
+    validateEl.setAttribute('style', 'display: none');
+    scoreInputEl.setAttribute('style', 'display: none');
 
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
     viewHighscoresEl.textContent='';
@@ -230,17 +241,16 @@ highScoreEl.addEventListener('click', function(event){
     resetButton.textContent='Go Home';
     gameHeaderEl.append(resetButton);
 
-    // clearButton.setAttribute('style','display:block');
-    // clearButton.textContent='ClearScores';
-    // viewHighscoresEl.append(clearButton);
+    clearButton.setAttribute('style','display:block');
+    clearButton.textContent='ClearScores';
+    viewHighscoresEl.append(clearButton);
 })
 
-
-
-// function clearScores(event){
-//     window.localStorage.clear();
-// }
-// clearButton.addEventListener('click', clearScores);
+clearButton.addEventListener('click', clearScores);
 
 resetButton.addEventListener('click', reloadPage);
 
+
+
+// Event Listener to start the game when the start button is clicked
+startButtonEl.addEventListener('click', startGame);
