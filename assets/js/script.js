@@ -202,7 +202,7 @@ submitEl.addEventListener('click', function(event){
         localStorage.setItem('recentScore', JSON.stringify(previousScores));
         scoreInputEl.setAttribute('style','display: none');
         resetButton.setAttribute('style','display:block');
-        resetButton.textContent='Reset Quiz';
+        resetButton.textContent='Go Home';
         gameHeaderEl.append(resetButton);
     }
     initialsEl.value='';
@@ -227,7 +227,7 @@ highScoreEl.addEventListener('click', function(event){
     }
 
     resetButton.setAttribute('style','display:block');
-    resetButton.textContent='Reset Quiz';
+    resetButton.textContent='Go Home';
     gameHeaderEl.append(resetButton);
 
     // clearButton.setAttribute('style','display:block');
