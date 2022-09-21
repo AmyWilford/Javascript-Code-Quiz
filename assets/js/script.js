@@ -84,16 +84,19 @@ function reloadPage(event){
     console.log('reloadingpage');
     viewHighscoresEl.textContent = '';
     resetButton.setAttribute('style','display:none');
+    countdownEl.textContent ='';
+
 }
     
 // Function to set Timer
 function setTimer(){
     questionIndex = 0;
     introEl.setAttribute('style','display: none' );
-    countdown=7;
+    countdownEl.setAttribute('style','display: block');
+    countdown=20;
     timer = setInterval(function(){
-    countdown--;
     countdownEl.textContent = 'Time: '+ countdown;
+    countdown--;
         if (countdown === 0) {
             endGame();
             countdownEl.textContent ='Your time is up!'
@@ -119,7 +122,7 @@ function selectAnswer (event) {
         if (countdown<=5) {
             countdown=0;
         } else {
-            countdown=-5;
+            countdown= (countdown-5);
         }
     }
     questionIndex++;
