@@ -68,7 +68,7 @@ let allQuestions = [
 let score = 0;
 let timer;
 let countdown;
-let questionIndex = 0;
+let questionIndex;
 let currentQuestion;
 let currentQuestionText;
 let recentScore;
@@ -83,10 +83,12 @@ function reloadPage(event){
     multipleChoiceEl.setAttribute('style', 'display: none')
     console.log('reloadingpage');
     viewHighscoresEl.textContent = '';
+    resetButton.setAttribute('style','display:none');
 }
     
 // Function to set Timer
 function setTimer(){
+    questionIndex = 0;
     introEl.setAttribute('style','display: none' );
     countdown=7;
     timer = setInterval(function(){
@@ -132,7 +134,7 @@ function selectAnswer (event) {
 // Function to show questions
 function showQuestion() {
     multipleChoiceEl.setAttribute('style', 'display: flex')
-    questionEl.setAttribute('style', 'display: flex');
+    questionEl.setAttribute('style', 'display: block');
     // Pick the first question in the array of questions
     currentQuestion = allQuestions[questionIndex];
     console.log(currentQuestion)
@@ -189,7 +191,7 @@ submitEl.addEventListener('click', function(event){
     console.log(recentScore);
     localStorage.setItem('recentScore', JSON.stringify(previousScores));
     scoreInputEl.setAttribute('style','display: none');
-    
+    resetButton.setAttribute('style','display:block');
     resetButton.textContent='Reset Quiz';
     gameHeaderEl.append(resetButton);
     
@@ -197,23 +199,20 @@ submitEl.addEventListener('click', function(event){
 
 highScoreEl.addEventListener('click', function(event){
     event.preventDefault();
-    scoreInputEl.setAttribute('style','display:none');
+    scoreInputEl.setAttribute('style', 'display:none');
     questionEl.setAttribute('style', 'display:none');
+    multipleChoiceEl.setAttribute('style', 'display:none');
     introEl.setAttribute('style','display:none');
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
     viewHighscoresEl.textContent='';
-    // if (previousScores.length > 3) {
-    //     previousScores = previousScores.shift();
-    //     console.log(previousScores.length);
-    //     console.log(previousScores);
-    // } 
     for(i =0; i<previousScores.length; i++){
         console.log(previousScores[i]);
-        
         let initialSection = document.createElement('p')
         initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
         viewHighscoresEl.append(initialSection)
     }
+
+    resetButton.setAttribute('style','display:block');
     resetButton.textContent='Reset Quiz';
     gameHeaderEl.append(resetButton);
 })

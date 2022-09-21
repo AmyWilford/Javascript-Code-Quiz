@@ -61,6 +61,11 @@ button:active {
     color: grey;
     font-style: italic;
 }
+#section{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
 
 input[type=text]{
     border: none;
