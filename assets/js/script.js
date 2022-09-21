@@ -127,7 +127,7 @@ function selectAnswer (event) {
 
     // If the question index = the number of available questions, or if the countdown clock hits zero, run gameEnd function
     if(questionIndex===allQuestions.length || countdown ==0){
-        clearInterval(setTimer);
+        clearInterval(timer);
         endGame();
     // Otherwise, show the next question
     } else if(questionIndex<allQuestions.length){
@@ -210,12 +210,13 @@ submitEl.addEventListener('click', function(event){
 highScoreEl.addEventListener('click', function(event){
     // Set display: none of elements which will disappear on click of highscoreEl
     event.preventDefault();
+    clearInterval(timer);
     scoreInputEl.setAttribute('style', 'display:none');
     questionEl.setAttribute('style', 'display:none');
     multipleChoiceEl.setAttribute('style', 'display:none');
     introEl.setAttribute('style','display:none');
     countdownEl.setAttribute('style', 'display: none');
-    validateEl.setAttribute('style', 'display: none');
+    validateEl.textContent = '';
     scoreInputEl.setAttribute('style', 'display: none');
 
     // Parse through stored high scores - and store in the array previousScores. Lopp through array and log each index of score and initials to newly created <p>. Append to view highscoreEl
@@ -235,7 +236,7 @@ highScoreEl.addEventListener('click', function(event){
     // Make clear scores button. Set text content and append to viewHighScoresEl
     clearButton.setAttribute('style','display:block');
     clearButton.setAttribute('style', 'text-align: center');
-    clearButton.textContent='ClearScores';
+    clearButton.textContent='Clear Scores';
     viewHighscoresEl.append(clearButton);
 })
 
