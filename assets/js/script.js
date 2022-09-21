@@ -14,6 +14,7 @@ let submitEl = document.getElementById('submit-score');
 let initialsEl = document.getElementById('initials');
 let viewHighscoresEl = document.getElementById('viewHighscores');
 // let viewHighScores;
+let resetButton = document.createElement('button');
 
 // Array of all question objects
 let allQuestions = [
@@ -76,6 +77,8 @@ let currentQuestionText;
 
 scoreInputEl.setAttribute('style', 'display: none');
 gameScoreEl.setAttribute('style', 'display: none');
+multipleChoiceEl.setAttribute('style', 'display: none')
+
 
 // Function to set Timer
 function setTimer(){
@@ -121,7 +124,6 @@ function selectAnswer (event) {
     }
  }
 
-
 // Function to show questions
 function showQuestion() {
     multipleChoiceEl.setAttribute('style', 'display: flex')
@@ -159,11 +161,6 @@ function displayScoreInfo(){
     gameScoreEl.setAttribute('style', 'display: block');
 }
 
-// function renderScore() {
-//     let lastScore = JSON.parse(localStorage.getItem('recentScore'));
-//     console.log(lastScore);
-//     }
-
 // Function to start the Game
 function startGame(){
     setTimer();
@@ -184,7 +181,6 @@ submitEl.addEventListener('click', function(event){
     localStorage.setItem('recentScore', JSON.stringify(previousScores));
 })
 
-
 highScoreEl.addEventListener('click', function(event){
     event.preventDefault();
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
@@ -199,12 +195,11 @@ highScoreEl.addEventListener('click', function(event){
         initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
         viewHighscoresEl.append(initialSection)
     }
+    resetButton.textContent='Reset Quiz';
+    gameHeaderEl.append(resetButton);
 })
 
-// let resetButton=document.getElementById('reset-game')
-    // resetButton.addEventListener('click', reset);
 
-// clearHighScoreEl.addEventListener('click', function(event) {
-//     window.localStorage.clear();
-//     initalSection.textContent='';
-// 
+resetButton.addEventListener('click', function(event){
+    console.log('gamereset')
+});

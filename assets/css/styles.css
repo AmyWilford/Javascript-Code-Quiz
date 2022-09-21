@@ -6,6 +6,9 @@ main {
     text-align: center;
     margin: 50px;
 }
+h1 {
+    font-size: 2rem;
+}
 #game-area {
     border: 3px solid #052B15;
     border-radius: 25px;
