@@ -12,11 +12,8 @@ let scoreInputEl = document.getElementById('score-input-section');
 let gameScoreEl = document.getElementById('gameScore');
 let submitEl = document.getElementById('submit-score');
 let initialsEl = document.getElementById('initials');
-let viewHighScores;
-
-
-scoreInputEl.setAttribute('style', 'display: none');
-gameScoreEl.setAttribute('style', 'display: none');
+let viewHighscoresEl = document.getElementById('viewHighscores');
+// let viewHighScores;
 
 // Array of all question objects
 let allQuestions = [
@@ -77,17 +74,20 @@ let questionIndex = 0;
 let currentQuestion;
 let currentQuestionText;
 
+scoreInputEl.setAttribute('style', 'display: none');
+gameScoreEl.setAttribute('style', 'display: none');
+
 // Function to set Timer
 function setTimer(){
     introEl.setAttribute('style','display: none' );
-    countdown=5;
+    countdown=7;
     timer = setInterval(function(){
     countdown--;
-    countdownEl.textContent = countdown + ' seconds left';
+    countdownEl.textContent = 'Time: '+ countdown;
         if (countdown === 0) {
-            clearInterval(timer);
-            countdownEl.textContent ='Your time is up!'
             endGame();
+            countdownEl.textContent ='Your time is up!'
+            clearInterval(timer);
         } else if(questionIndex===allQuestions.length) {
             clearInterval(timer);
             countdownEl.textContent =''
@@ -103,25 +103,22 @@ function selectAnswer (event) {
     if (selectedAnswerButton.value == 1){
         validateEl.textContent = 'Correct';
         score++;
+        // questionIndex++;
     } else {
         validateEl.textContent = 'Incorrect';
-        if(countdown < 5) {
-            countdownEl.textContent ='Your time is up!';
-            clearInterval(setTimer);
-            endGame();
+        countdown=-5
+        if (countdown<=5) {
+            countdown=0;
         } else 
-        countdown=countdown-5;
-    }
-
-    questionIndex++;
-
+            return;    }
     if(questionIndex===allQuestions.length){
         endGame();
-        displayScoreInfo();
     } else if(questionIndex<allQuestions.length){
+        questionIndex++
         showQuestion();
     }
  }
+
 
 // Function to show questions
 function showQuestion() {
@@ -146,11 +143,12 @@ function showQuestion() {
 
 // Function to determine game win
 function endGame(){
+    countdownEl.setAttribute('style', 'display: none');
     multipleChoiceEl.setAttribute('style', 'display:none')
-    questionEl.textContent="You're all done!";
+    questionEl.textContent="Quiz Over";
     gameScoreEl.textContent='Your score is: ' + score;
     validateEl.textContent='';
-    // displayScoreInfo();
+    displayScoreInfo();
 }
 
 // Function save initials and score
@@ -159,14 +157,10 @@ function displayScoreInfo(){
     gameScoreEl.setAttribute('style', 'display: block');
 }
 
-function renderScore() {
-    let lastScore = JSON.parse(localStorage.getItem('recentScore'));
-    console.log(lastScore);
-    }
-
-// function init() {
-//     renderHighscore();
-// }
+// function renderScore() {
+//     let lastScore = JSON.parse(localStorage.getItem('recentScore'));
+//     console.log(lastScore);
+//     }
 
 // Function to start the Game
 function startGame(){
@@ -175,7 +169,6 @@ function startGame(){
 }
 startButtonEl.addEventListener('click', startGame);
 
-// init();
 submitEl.addEventListener('click', function(event){
     event.preventDefault();
     let recentScore = { 
@@ -193,25 +186,23 @@ submitEl.addEventListener('click', function(event){
 highScoreEl.addEventListener('click', function(event){
     event.preventDefault();
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
-    introEl.textContent='';
+    viewHighscoresEl.textContent='';
     for(i =0; i<previousScores.length; i++){
         console.log(previousScores[i]);
-        let viewHighscoresEl = document.getElementById('viewHighscores');
-        let initialSection = document.createElement('p')
-        initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
-        viewHighscoresEl.append(initialSection)
         if (previousScores.length > 3) {
             previousScores.shift();
             console.log(previousScores.length);
-            console.log(previousScores);
         }
+        let initialSection = document.createElement('p')
+        initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
+        viewHighscoresEl.append(initialSection)
     }
 })
 
-let resetButton=document.getElementById('reset-game')
+// let resetButton=document.getElementById('reset-game')
     // resetButton.addEventListener('click', reset);
 
 // clearHighScoreEl.addEventListener('click', function(event) {
 //     window.localStorage.clear();
 //     initalSection.textContent='';
-// })
+// 
