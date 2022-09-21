@@ -80,7 +80,7 @@ function reloadPage(event){
     scoreInputEl.setAttribute('style', 'display: none');
     gameScoreEl.setAttribute('style', 'display: none');
     multipleChoiceEl.setAttribute('style', 'display: none')
-    console.log('reloadingpage');
+    console.log('reloading page');
     viewHighscoresEl.textContent = '';
     resetButton.setAttribute('style','display:none');
     countdownEl.textContent ='';
@@ -234,6 +234,7 @@ highScoreEl.addEventListener('click', function(event){
 
     // Make clear scores button. Set text content and append to viewHighScoresEl
     clearButton.setAttribute('style','display:block');
+    clearButton.setAttribute('style', 'text-align: center');
     clearButton.textContent='ClearScores';
     viewHighscoresEl.append(clearButton);
 })

@@ -75,8 +75,7 @@ input[type=text]{
     padding-top: 30px;
     margin-bottom: 10px;
 }
-/* Set clear scores & score input elements to display: none at start of game */
-#clearscores, 
+/* Set score input elements to display: none at start of game */
 #score-input-section {
     display: none;
 }
