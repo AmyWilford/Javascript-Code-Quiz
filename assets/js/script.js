@@ -73,11 +73,17 @@ let currentQuestion;
 let currentQuestionText;
 let recentScore;
 
-function loadPage(){
+function reloadPage(event){
+    questionEl.setAttribute('style', 'display:none');
+    introEl.setAttribute('style', 'display:block');
     scoreInputEl.setAttribute('style', 'display: none');
     gameScoreEl.setAttribute('style', 'display: none');
     multipleChoiceEl.setAttribute('style', 'display: none')
+    console.log('reloadingpage');
+    viewHighscores.textContent = '';
 }
+    
+
 
 
 // Function to set Timer
@@ -162,6 +168,7 @@ function displayScoreInfo(){
 }
 
 // Function to start the Game
+
 function startGame(){
     setTimer();
     showQuestion();
@@ -180,6 +187,7 @@ submitEl.addEventListener('click', function(event){
     console.log(recentScore);
     localStorage.setItem('recentScore', JSON.stringify(previousScores));
     scoreInputEl.setAttribute('style','display: none');
+    
     resetButton.textContent='Reset Quiz';
     gameHeaderEl.append(resetButton);
     
@@ -187,15 +195,17 @@ submitEl.addEventListener('click', function(event){
 
 highScoreEl.addEventListener('click', function(event){
     event.preventDefault();
+    questionEl.setAttribute('style', 'display:none');
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
     viewHighscoresEl.textContent='';
+    // if (previousScores.length > 3) {
+    //     previousScores = previousScores.shift();
+    //     console.log(previousScores.length);
+    //     console.log(previousScores);
+    // } 
     for(i =0; i<previousScores.length; i++){
         console.log(previousScores[i]);
-        // if (previousScores.length >3) {
-        //     previousScores.shift();
-        //     console.log(previousScores.length);
-        //     console.log(previousScores);
-        // } 
+        
         let initialSection = document.createElement('p')
         initialSection.textContent= 'initials: ' + previousScores[i].initials + ' | score: '+ previousScores[i].score;
         viewHighscoresEl.append(initialSection)
@@ -204,6 +214,5 @@ highScoreEl.addEventListener('click', function(event){
     gameHeaderEl.append(resetButton);
 })
 
-resetButton.addEventListener('click', function(event){
-    console.log('gamereset')
-});
+resetButton.addEventListener('click', reloadPage);
+
