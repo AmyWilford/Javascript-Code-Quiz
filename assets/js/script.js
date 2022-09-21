@@ -73,19 +73,18 @@ let currentQuestion;
 let currentQuestionText;
 let recentScore;
 
+scoreInputEl.setAttribute('style', 'display: none');
+
+
 function reloadPage(event){
-    questionEl.setAttribute('style', 'display:none');
     introEl.setAttribute('style', 'display:block');
     scoreInputEl.setAttribute('style', 'display: none');
     gameScoreEl.setAttribute('style', 'display: none');
     multipleChoiceEl.setAttribute('style', 'display: none')
     console.log('reloadingpage');
-    viewHighscores.textContent = '';
+    viewHighscoresEl.textContent = '';
 }
     
-
-
-
 // Function to set Timer
 function setTimer(){
     introEl.setAttribute('style','display: none' );
@@ -133,6 +132,7 @@ function selectAnswer (event) {
 // Function to show questions
 function showQuestion() {
     multipleChoiceEl.setAttribute('style', 'display: flex')
+    questionEl.setAttribute('style', 'display: flex');
     // Pick the first question in the array of questions
     currentQuestion = allQuestions[questionIndex];
     console.log(currentQuestion)
@@ -155,9 +155,10 @@ function showQuestion() {
 function endGame(){
     countdownEl.setAttribute('style', 'display: none');
     multipleChoiceEl.setAttribute('style', 'display:none')
-    questionEl.textContent="Quiz Over";
+    questionEl.textContent= 'Quiz Over'
     gameScoreEl.textContent='Your score is: ' + score;
     validateEl.textContent='';
+    quizOver='';
     displayScoreInfo();
 }
 
@@ -177,6 +178,7 @@ startButtonEl.addEventListener('click', startGame);
 
 submitEl.addEventListener('click', function(event){
     event.preventDefault();
+    questionEl.textContent='';
     recentScore = { 
         initials:initialsEl.value,
         score:score,
@@ -195,7 +197,9 @@ submitEl.addEventListener('click', function(event){
 
 highScoreEl.addEventListener('click', function(event){
     event.preventDefault();
+    scoreInputEl.setAttribute('style','display:none');
     questionEl.setAttribute('style', 'display:none');
+    introEl.setAttribute('style','display:none');
     let previousScores = JSON.parse(localStorage.getItem('recentScore')) || [];
     viewHighscoresEl.textContent='';
     // if (previousScores.length > 3) {
