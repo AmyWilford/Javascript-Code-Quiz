@@ -1,4 +1,4 @@
-# Javascript-Code-Quiz
+# Javascript Fundamentals: Multiple Choice Quiz
 
 ## Table of Contents:
 
